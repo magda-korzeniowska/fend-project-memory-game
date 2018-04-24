@@ -3,6 +3,10 @@
  */
 
 
+let card = document.querySelectorAll('.card');
+let cards = [...card];
+let deck = document.querySelector('.deck');
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -24,6 +28,19 @@ function shuffle(array) {
 
     return array;
 }
+
+function startGame() {
+  let shuffledCards = shuffle(cards);
+  for (let card of shuffledCards) {
+    card.classList.remove('open', 'show', 'match', 'unmatch');
+    card.addEventListener('click', function() {
+      card.classList.add('open', 'show');
+    });
+  }
+}
+
+
+
 
 
 /*
