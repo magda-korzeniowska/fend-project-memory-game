@@ -2,10 +2,10 @@
  * Create a list that holds all of your cards
  */
 
-
-let card = document.querySelectorAll('.card');
+const deck = document.querySelector('.deck');
+let card = deck.querySelectorAll('.card');
 let cards = [...card];
-let deck = document.querySelector('.deck');
+let openCards = [];
 
 /*
  * Display the cards on the page
@@ -29,18 +29,15 @@ function shuffle(array) {
     return array;
 }
 
+// Start game function - displays the cards randomly
 function startGame() {
-  let shuffledCards = shuffle(cards);
-  for (let card of shuffledCards) {
+  cards = shuffle(cards);
+  for (let card of cards) {
     card.classList.remove('open', 'show', 'match', 'unmatch');
-    card.addEventListener('click', function() {
-      card.classList.add('open', 'show');
-    });
-  }
+  };
 }
 
-
-
+startGame();
 
 
 /*
@@ -53,3 +50,45 @@ function startGame() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+
+for (let card of cards) {
+    card.addEventListener('click', displayCard);
+    card.addEventListener('click', openCard);
+}
+
+function displayCard() {
+    this.classList.toggle('open');
+    this.classList.toggle('show');
+    this.classList.toggle('disabled');
+}
+
+function openCard() {
+  openCards.push(this);
+  if (openCards.length === 1) {
+    moveCounter();
+  } else if (openCards.length === 2) {
+    if (openCards[0].innerHTML === openCards[1].innerHTML) {
+      matched();
+    } else {
+      unmatched();
+    }
+  }
+}
+
+function moveCounter() {
+  console.log('moveCounter');
+}
+function match() {
+  openCards[0].classList.add('match', 'disabled');
+  openCards[1].classList.add('match', 'disabled');
+  openCards[0].classList.remove('open', 'show');
+  openCards[1].classList.remove('open', 'show');
+  openCards = [];
+  console.log('matched');
+}
+
+function unmatched() {
+  openCards[0].classList.add('unmached');
+  openCards[1].classList.add('unmached');
+}
