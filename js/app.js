@@ -6,6 +6,7 @@ const deck = document.querySelector('.deck');
 let card = deck.querySelectorAll('.card');
 let cards = [...card];
 let openCards = [];
+let matchedCards = [];
 
 /*
  * Display the cards on the page
@@ -29,11 +30,17 @@ function shuffle(array) {
     return array;
 }
 
-// Start game function - displays the cards randomly
+
+//Shuffles cards, removes all cards' classes
+
 function startGame() {
   cards = shuffle(cards);
+
   for (let card of cards) {
-    card.classList.remove('open', 'show', 'match', 'unmatch');
+    cards.forEach(function(card) {
+        deck.append(card);
+        card.classList.remove('open', 'show', 'match', 'unmatch');
+    });
   };
 }
 
@@ -79,16 +86,40 @@ function openCard() {
 function moveCounter() {
   console.log('moveCounter');
 }
-function match() {
+function matched() {
   openCards[0].classList.add('match', 'disabled');
   openCards[1].classList.add('match', 'disabled');
   openCards[0].classList.remove('open', 'show');
   openCards[1].classList.remove('open', 'show');
+  matchedCards.push(openCards[0], openCards[1]);
   openCards = [];
-  console.log('matched');
+  console.log(matchedCards);
 }
 
 function unmatched() {
-  openCards[0].classList.add('unmached');
-  openCards[1].classList.add('unmached');
+  openCards[0].classList.add('no-match');
+  openCards[1].classList.add('no-match');
+  disable();
+  //sets interval to delay running code
+  setTimeout (function() {
+    openCards[0].classList.remove('show', 'open', 'no-match');
+    openCards[1].classList.remove('show', 'open', 'no-match');
+    openCards = [];
+    enable();
+  }, 1000);
+}
+
+function disable() {
+  for (let card of cards) {
+    card.classList.add('disabled');
+  }
+}
+
+function enable() {
+  for (let card of cards) {
+    card.classList.remove('disabled');
+  }
+  for (let matchedCard of matchedCards) {
+    matchedCard.classList.add('disabled');
+  }
 }
