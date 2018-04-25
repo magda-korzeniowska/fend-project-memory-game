@@ -7,6 +7,8 @@ let card = deck.querySelectorAll('.card');
 let cards = [...card];
 let openCards = [];
 let matchedCards = [];
+let moves = 0;
+let movesCount = document.querySelector('.moves');
 
 /*
  * Display the cards on the page
@@ -73,7 +75,7 @@ function displayCard() {
 function openCard() {
   openCards.push(this);
   if (openCards.length === 1) {
-    moveCounter();
+    movesCounter();
   } else if (openCards.length === 2) {
     if (openCards[0].innerHTML === openCards[1].innerHTML) {
       matched();
@@ -83,9 +85,23 @@ function openCard() {
   }
 }
 
-function moveCounter() {
-  console.log('moveCounter');
+function movesCounter() {
+  moves++;
+  movesCount.innerHTML = moves;
+  if (moves === 1){
+    startClock();
+  }
+  rating();
 }
+
+function startClock() {
+  console.log('startClock');
+}
+
+function rating() {
+  console.log('rating');
+}
+
 function matched() {
   openCards[0].classList.add('match', 'disabled');
   openCards[1].classList.add('match', 'disabled');
