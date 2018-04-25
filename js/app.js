@@ -9,6 +9,7 @@ let openCards = [];
 let matchedCards = [];
 let moves = 0;
 let movesCount = document.querySelector('.moves');
+let stars = document.querySelectorAll('.fa-star');
 
 /*
  * Display the cards on the page
@@ -94,14 +95,6 @@ function movesCounter() {
   rating();
 }
 
-function startClock() {
-  console.log('startClock');
-}
-
-function rating() {
-  console.log('rating');
-}
-
 function matched() {
   openCards[0].classList.add('match', 'disabled');
   openCards[1].classList.add('match', 'disabled');
@@ -137,5 +130,17 @@ function enable() {
   }
   for (let matchedCard of matchedCards) {
     matchedCard.classList.add('disabled');
+  }
+}
+
+function startClock() {
+  console.log('startClock');
+}
+
+function rating() {
+  if (moves > 8 && moves <= 12) {
+    stars[2].classList.remove('fa-star');
+  } else if (moves > 12) {
+    stars[1].classList.remove('fa-star');
   }
 }
