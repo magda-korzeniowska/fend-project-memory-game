@@ -10,6 +10,8 @@ let matchedCards = [];
 let moves = 0;
 let movesCount = document.querySelector('.moves');
 let stars = document.querySelectorAll('.fa-star');
+let timer = document.querySelector('.timer');
+let sec = 0, min = 0;
 
 /*
  * Display the cards on the page
@@ -90,7 +92,7 @@ function movesCounter() {
   moves++;
   movesCount.innerHTML = moves;
   if (moves === 1){
-    startClock();
+    startTimer();
   }
   rating();
 }
@@ -133,8 +135,24 @@ function enable() {
   }
 }
 
-function startClock() {
-  console.log('startClock');
+function startTimer() {
+  setInterval(function() {
+    sec++;
+    if (sec < 10) {
+      sec = "0" + sec;
+    }
+    if (min === 0) {
+      min = "00";
+    }
+    if (sec === 59) {
+      min++;
+      if (min < 10) {
+        min = "0" + min;
+      }
+      sec = 0;
+    }
+    timer.innerHTML = min + ":" + sec;
+  }, 1000);
 }
 
 function rating() {
