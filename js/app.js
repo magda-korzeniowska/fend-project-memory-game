@@ -11,7 +11,14 @@ let moves = 0;
 let movesCount = document.querySelector('.moves');
 let stars = document.querySelectorAll('.fa-star');
 let timer = document.querySelector('.timer');
+let time;
 let sec = 0, min = 0;
+let modal = document.querySelector('.modal');
+let totalMoves = document.querySelector('#final-moves');
+let totalTime = document.querySelector('#final-time');
+let totalScore = document.querySelector('#final-score');
+let close = document.querySelector('.close');
+let restart = document.querySelector('.restart');
 
 /*
  * Display the cards on the page
@@ -47,6 +54,9 @@ function startGame() {
         card.classList.remove('open', 'show', 'match', 'unmatch');
     });
   };
+  resetMoves();
+  // resetScore();
+  // resetTimer();
 }
 
 startGame();
@@ -67,6 +77,7 @@ startGame();
 for (let card of cards) {
     card.addEventListener('click', displayCard);
     card.addEventListener('click', openCard);
+    // card.addEventListener('click', modal);
 }
 
 function displayCard() {
@@ -136,7 +147,7 @@ function enable() {
 }
 
 function startTimer() {
-  setInterval(function() {
+  let time = setInterval(function() {
     sec++;
     if (sec < 10) {
       sec = "0" + sec;
@@ -155,6 +166,10 @@ function startTimer() {
   }, 1000);
 }
 
+function stopTimer() {
+  clearInterval(time);
+}
+
 function rating() {
   if (moves > 8 && moves <= 12) {
     stars[2].classList.remove('fa-star');
@@ -162,3 +177,60 @@ function rating() {
     stars[1].classList.remove('fa-star');
   }
 }
+
+function restartGame() {
+  restart.addEventListener('click', function() {
+    startGame();
+  });
+}
+
+// The modal - pop up window with congratulations
+function gameEnd() {
+  if (matchedCards === 16) {
+    stopTimer();
+    let finalTime = timer.innerHTML;
+    //shows congratulations pop up window
+    modal.style.display = "block";
+
+    let starsScore = document.querySelector('.stars').innerHTML;
+
+    totalMoves = moves;
+    totalTime = finalTime;
+    totalScore = starsScore;
+
+    // closePopUp();
+  }
+}
+
+// function closePopUp() {
+//   close.addEventListener('click', function(event) {
+//     modal.style.display = "none";
+//     startGame();
+//   });
+// }
+
+// function playAgain() {
+// restart.addEventListener('click', function(event) {
+//     modal.style.display = "none";
+//     startGame();
+//   });
+// }
+
+function resetMoves() {
+  moves = 0;
+  movesCount.innerHTML = moves;
+}
+//
+// function resetTimer() {
+//   sec = 0;
+//   min = 0;
+//   timer.innerHTML = '00:00';
+//   stopTimer();
+//   // może lepiej po prostu clearInterval(time)
+// }
+//
+// function resetScore() {
+//   for (let star of stars) {
+//     star.classList.add('fa-star');
+//   }
+// }
