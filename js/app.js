@@ -19,6 +19,7 @@ let totalTime = document.querySelector('#final-time');
 let totalScore = document.querySelector('#final-score');
 let close = document.querySelector('.close');
 let restart = document.querySelector('.restart');
+let again = document.querySelector('.play-again');
 
 /*
  * Display the cards on the page
@@ -55,8 +56,8 @@ function startGame() {
     });
   };
   resetMoves();
-  // resetScore();
-  // resetTimer();
+  resetScore();
+  resetTimer();
 }
 
 startGame();
@@ -77,7 +78,7 @@ startGame();
 for (let card of cards) {
     card.addEventListener('click', displayCard);
     card.addEventListener('click', openCard);
-    // card.addEventListener('click', modal);
+    card.addEventListener('click', gameEnd);
 }
 
 function displayCard() {
@@ -147,7 +148,7 @@ function enable() {
 }
 
 function startTimer() {
-  let time = setInterval(function() {
+  time = setInterval(function() {
     sec++;
     if (sec < 10) {
       sec = "0" + sec;
@@ -178,59 +179,72 @@ function rating() {
   }
 }
 
-function restartGame() {
-  restart.addEventListener('click', function() {
-    startGame();
-  });
-}
+// function restartGame() {
+//   restart.addEventListener('click', function() {
+//     startGame();
+//   });
+// }
+
+//restarts game
+restart.addEventListener('click', function() {
+  startGame();
+});
+
 
 // The modal - pop up window with congratulations
 function gameEnd() {
-  if (matchedCards === 16) {
+  if (matchedCards.length === 2) {
     stopTimer();
     let finalTime = timer.innerHTML;
     //shows congratulations pop up window
     modal.style.display = "block";
 
-    let starsScore = document.querySelector('.stars').innerHTML;
+    let totalScore = document.querySelector('.stars').innerHTML;
+    document.querySelector('#final-score').innerHTML = totalScore;
 
-    totalMoves = moves;
-    totalTime = finalTime;
-    totalScore = starsScore;
+    let totalMoves = document.querySelector(".moves").innerHTML;
+    document.querySelector('#final-moves').innerHTML = totalMoves;
 
-    // closePopUp();
+    let totalTime = document.querySelector(".timer").innerHTML;
+    document.querySelector('#final-time').innerHTML = totalTime;
+
+    playAgain();
+    closePopUp();
   }
 }
+ //----------------------------------------------------------------------------------
 
-// function closePopUp() {
-//   close.addEventListener('click', function(event) {
-//     modal.style.display = "none";
-//     startGame();
-//   });
-// }
 
-// function playAgain() {
-// restart.addEventListener('click', function(event) {
-//     modal.style.display = "none";
-//     startGame();
-//   });
-// }
+
+
+function closePopUp() {
+  close.addEventListener('click', function(event) {
+    modal.style.display = "none";
+    startGame();
+  });
+}
+
+function playAgain() {
+again.addEventListener('click', function(event) {
+    modal.style.display = "none";
+    startGame();
+  });
+}
 
 function resetMoves() {
   moves = 0;
   movesCount.innerHTML = moves;
 }
-//
-// function resetTimer() {
-//   sec = 0;
-//   min = 0;
-//   timer.innerHTML = '00:00';
-//   stopTimer();
-//   // może lepiej po prostu clearInterval(time)
-// }
-//
-// function resetScore() {
-//   for (let star of stars) {
-//     star.classList.add('fa-star');
-//   }
-// }
+
+function resetTimer() {
+  sec = 0;
+  min = 0;
+  timer.innerHTML = '00:00';
+  stopTimer();
+}
+
+function resetScore() {
+  for (let star of stars) {
+    star.classList.add('fa-star');
+  }
+}
