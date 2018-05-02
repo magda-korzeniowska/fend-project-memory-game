@@ -1,20 +1,34 @@
 # Memory Game Project
 
+Project #3<br>
+Created for the Udacity Nanodegree Front End Web Developer (Full Google Scholarship)
+
+[Play the game](https://magda-korzeniowska.github.io/fend-project-memory-game/) 
+
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Project Description](#project-description)
+* [How to Play](#how-to-play)
+* [Sources](#sources)
 
-## Instructions
+## Project Description
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Students were given [a starter project](https://github.com/udacity/fend-project-memory-game) with some HTML and CSS styling displaying a static version of the Memory Game project. 
+A main goal was to convert this static project into an interactive one, modifying the HTML and CSS files, but primarily the JavaScript file.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## How to Play
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+- game goal - match all 16 cards into 8 pairs in the smallest number of moves
+- start the game by clicking any card
+- you have unlimited number of attempts, but your star rating is reduced
+- rating: 
+  - 3 stars: up to 10 moves
+  - 2 stars: 11-14 moves
+  - 1 star: more than 14 moves
 
-## Contributing
+## Sources:
+- starter code: [Udacity](https://github.com/udacity/fend-project-memory-game)
+- shuffle function: [Stackoverflow](http://stackoverflow.com/a/2450976)
+- modal: adapted from [w3schools](https://www.w3schools.com/howto/howto_css_modals.asp)
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## HAVE FUN!
